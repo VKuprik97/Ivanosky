@@ -100,6 +100,7 @@ h3 {
     letter-spacing: 1px;
     cursor: pointer;
     background: transparent;
+    transition: var(--transition);
 }
 
 .btn:hover {
@@ -115,6 +116,18 @@ h3 {
 .btn-primary:hover {
     background-color: var(--color-accent);
     color: var(--color-bg);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 1px solid var(--color-text);
+    color: var(--color-text);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(224, 216, 192, 0.1);
+    border-color: var(--color-white);
+    color: var(--color-white);
 }
 
 /* Header */
@@ -355,6 +368,12 @@ h3 {
     min-width: 250px;
 }
 
+.cookie-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
 .cookie-content .btn {
     white-space: nowrap;
 }
@@ -416,6 +435,11 @@ h3 {
     .cookie-content {
         flex-direction: column;
         text-align: center;
+    }
+
+    .cookie-buttons {
+        width: 100%;
+        flex-direction: column;
     }
 
     .cookie-content .btn {
