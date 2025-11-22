@@ -84,9 +84,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Cookie Banner
     const cookieBanner = document.getElementById('cookie-banner');
     const acceptButton = document.getElementById('accept-cookies');
+    const declineButton = document.getElementById('decline-cookies');
 
-    // Check if user has already accepted cookies
-    if (!localStorage.getItem('cookiesAccepted')) {
+    // Check if user has already made a choice about cookies
+    if (!localStorage.getItem('cookiesAccepted') && !localStorage.getItem('cookiesDeclined')) {
         // Show banner after a short delay
         setTimeout(() => {
             cookieBanner.classList.add('show');
@@ -96,6 +97,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle accept button click
     acceptButton.addEventListener('click', () => {
         localStorage.setItem('cookiesAccepted', 'true');
+        localStorage.removeItem('cookiesDeclined');
+        cookieBanner.classList.remove('show');
+    });
+
+    // Handle decline button click
+    declineButton.addEventListener('click', () => {
+        localStorage.setItem('cookiesDeclined', 'true');
+        localStorage.removeItem('cookiesAccepted');
         cookieBanner.classList.remove('show');
     });
 });
