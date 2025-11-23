@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Smooth Scroll for Anchor Links (optional, as CSS scroll-behavior: smooth works in most modern browsers)
+    // Smooth Scroll for Anchor Links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -54,8 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-
-
 
     // Scroll Reveal Animation
     const revealElements = document.querySelectorAll('.service-card, .about-text, .section-title');
@@ -81,30 +79,89 @@ document.addEventListener('DOMContentLoaded', () => {
     // Trigger once on load
     revealOnScroll();
 
-    // Cookie Banner
-    const cookieBanner = document.getElementById('cookie-banner');
-    const acceptButton = document.getElementById('accept-cookies');
-    const declineButton = document.getElementById('decline-cookies');
+    // Cookie Modal
+    const cookieModal = document.getElementById('cookie-modal');
+    const cookieOverlay = cookieModal.querySelector('.cookie-modal-overlay');
+    const closeButton = cookieModal.querySelector('.cookie-close');
+    const acceptAllButton = document.getElementById('accept-all-cookies');
+    const rejectAllButton = document.getElementById('reject-all-cookies');
+    const savePreferencesButton = document.getElementById('save-cookie-preferences');
 
     // Check if user has already made a choice about cookies
-    if (!localStorage.getItem('cookiesAccepted') && !localStorage.getItem('cookiesDeclined')) {
-        // Show banner after a short delay
+    if (!localStorage.getItem('cookieConsent')) {
+        // Show modal after a short delay
         setTimeout(() => {
-            cookieBanner.classList.add('show');
+            cookieModal.classList.add('show');
         }, 1000);
     }
 
-    // Handle accept button click
-    acceptButton.addEventListener('click', () => {
-        localStorage.setItem('cookiesAccepted', 'true');
-        localStorage.removeItem('cookiesDeclined');
-        cookieBanner.classList.remove('show');
+    // Close modal function
+    function closeModal() {
+        cookieModal.classList.remove('show');
+    }
+
+    // Close button
+    closeButton.addEventListener('click', closeModal);
+
+    // Close when clicking overlay
+    cookieOverlay.addEventListener('click', closeModal);
+
+    // Accept all cookies
+    acceptAllButton.addEventListener('click', () => {
+        const preferences = {
+            necessary: true,
+            functional: true,
+            analytics: true,
+            performance: true,
+            advertising: true
+        };
+        localStorage.setItem('cookieConsent', JSON.stringify(preferences));
+        closeModal();
     });
 
-    // Handle decline button click
-    declineButton.addEventListener('click', () => {
-        localStorage.setItem('cookiesDeclined', 'true');
-        localStorage.removeItem('cookiesAccepted');
-        cookieBanner.classList.remove('show');
+    // Reject all cookies (except necessary)
+    rejectAllButton.addEventListener('click', () => {
+        const preferences = {
+            necessary: true,
+            functional: false,
+            analytics: false,
+            performance: false,
+            advertising: false
+        };
+        localStorage.setItem('cookieConsent', JSON.stringify(preferences));
+        closeModal();
     });
+
+    // Save custom preferences
+    savePreferencesButton.addEventListener('click', () => {
+        const preferences = {
+            necessary: true, // Always true
+            functional: document.getElementById('cookie-functional').checked,
+            analytics: document.getElementById('cookie-analytics').checked,
+            performance: document.getElementById('cookie-performance').checked,
+            advertising: document.getElementById('cookie-advertising').checked
+        };
+        localStorage.setItem('cookieConsent', JSON.stringify(preferences));
+        closeModal();
+    });
+
+    // Toggle category details
+    const categoryHeaders = document.querySelectorAll('.cookie-category-header');
+    categoryHeaders.forEach(header => {
+        header.addEventListener('click', (e) => {
+            // Don't toggle if clicking on checkbox
+            if (e.target.type === 'checkbox') return;
+
+            const category = header.closest('.cookie-category');
+            category.classList.toggle('expanded');
+        });
+    });
+
+    // Cookie Preferences Button (to reopen modal)
+    const cookiePreferencesBtn = document.getElementById('cookie-preferences-btn');
+    if (cookiePreferencesBtn) {
+        cookiePreferencesBtn.addEventListener('click', () => {
+            cookieModal.classList.add('show');
+        });
+    }
 });
