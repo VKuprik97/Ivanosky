@@ -106,6 +106,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // Close when clicking overlay
     cookieOverlay.addEventListener('click', closeModal);
 
+    // Load saved preferences to checkboxes
+    function loadPreferences() {
+        const saved = localStorage.getItem('cookieConsent');
+        if (saved) {
+            const preferences = JSON.parse(saved);
+            document.getElementById('cookie-functional').checked = preferences.functional;
+            document.getElementById('cookie-analytics').checked = preferences.analytics;
+            document.getElementById('cookie-performance').checked = preferences.performance;
+            document.getElementById('cookie-advertising').checked = preferences.advertising;
+        }
+    }
+
+    // Update checkboxes in UI
+    function updateCheckboxes(checked) {
+        document.getElementById('cookie-functional').checked = checked;
+        document.getElementById('cookie-analytics').checked = checked;
+        document.getElementById('cookie-performance').checked = checked;
+        document.getElementById('cookie-advertising').checked = checked;
+    }
+
     // Accept all cookies
     acceptAllButton.addEventListener('click', () => {
         const preferences = {
@@ -116,6 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
             advertising: true
         };
         localStorage.setItem('cookieConsent', JSON.stringify(preferences));
+        updateCheckboxes(true);
         closeModal();
     });
 
@@ -129,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
             advertising: false
         };
         localStorage.setItem('cookieConsent', JSON.stringify(preferences));
+        updateCheckboxes(false);
         closeModal();
     });
 
@@ -161,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cookiePreferencesBtn = document.getElementById('cookie-preferences-btn');
     if (cookiePreferencesBtn) {
         cookiePreferencesBtn.addEventListener('click', () => {
+            loadPreferences();
             cookieModal.classList.add('show');
         });
     }
