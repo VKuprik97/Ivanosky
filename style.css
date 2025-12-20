@@ -275,9 +275,9 @@ h3 {
 .contact-info {
     display: flex;
     justify-content: center;
-    gap: var(--spacing-lg);
+    gap: var(--spacing-md);
     margin-top: var(--spacing-md);
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .contact-item {
@@ -300,22 +300,24 @@ h3 {
 .contact-item a {
     font-size: 1.1rem;
     color: var(--color-text);
+    word-break: break-word;
 }
 
 .contact-item a:hover {
     color: var(--color-white);
 }
 
-.instagram-link {
+.contact-link {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
 }
 
-.instagram-icon {
-    width: 50px;
-    height: 50px;
+.contact-icon {
+    width: 24px;
+    height: 24px;
     object-fit: contain;
+    flex-shrink: 0;
 }
 
 /* Footer */
