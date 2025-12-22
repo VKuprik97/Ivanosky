@@ -75,15 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lastScroll = currentScroll;
     });
 
-    // Parallax effect for hero section
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallaxSpeed = 0.5;
-            hero.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
-        });
-    }
+    // Parallax effect removed to prevent "Chi siamo" from appearing above hero
 
     // Enhanced Scroll Reveal Animation with stagger
     const revealElements = document.querySelectorAll('.service-card, .about-text, .section-title, .contact-item');
