@@ -55,17 +55,59 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Scroll Reveal Animation
-    const revealElements = document.querySelectorAll('.service-card, .about-text, .section-title');
+    // ========================================
+    // MODERN SCROLL ANIMATIONS
+    // ========================================
+
+    const header = document.querySelector('.header');
+    let lastScroll = 0;
+
+    // Header scroll effect
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+
+        if (currentScroll > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+
+        lastScroll = currentScroll;
+    });
+
+    // Parallax effect for hero section
+    const hero = document.querySelector('.hero');
+    if (hero) {
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxSpeed = 0.5;
+            hero.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
+        });
+    }
+
+    // Enhanced Scroll Reveal Animation with stagger
+    const revealElements = document.querySelectorAll('.service-card, .about-text, .section-title, .contact-item');
+    const sections = document.querySelectorAll('.section');
 
     const revealOnScroll = () => {
         const windowHeight = window.innerHeight;
         const elementVisible = 150;
 
-        revealElements.forEach(element => {
+        // Reveal sections
+        sections.forEach(section => {
+            const sectionTop = section.getBoundingClientRect().top;
+            if (sectionTop < windowHeight - elementVisible) {
+                section.classList.add('visible');
+            }
+        });
+
+        // Reveal elements with stagger
+        revealElements.forEach((element, index) => {
             const elementTop = element.getBoundingClientRect().top;
             if (elementTop < windowHeight - elementVisible) {
-                element.classList.add('visible');
+                setTimeout(() => {
+                    element.classList.add('visible');
+                }, index * 100); // Stagger delay
             }
         });
     };
@@ -75,9 +117,83 @@ document.addEventListener('DOMContentLoaded', () => {
         element.classList.add('reveal');
     });
 
-    window.addEventListener('scroll', revealOnScroll);
+    // Throttle scroll events for performance
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                revealOnScroll();
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+
     // Trigger once on load
     revealOnScroll();
+
+    // ========================================
+    // INTERACTIVE HOVER EFFECTS
+    // ========================================
+
+    // Add magnetic effect to buttons
+    const buttons = document.querySelectorAll('.btn-cta, .footer-btn');
+    buttons.forEach(button => {
+        button.addEventListener('mousemove', (e) => {
+            const rect = button.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+
+            button.style.transform = `translate(${x * 0.1}px, ${y * 0.1}px)`;
+        });
+
+        button.addEventListener('mouseleave', () => {
+            button.style.transform = '';
+        });
+    });
+
+    // Add tilt effect to service cards
+    const serviceCards = document.querySelectorAll('.service-card');
+    serviceCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px) scale(1.02)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+        });
+    });
+
+    // Add ripple effect to contact items
+    const contactItems = document.querySelectorAll('.contact-item');
+    contactItems.forEach(item => {
+        item.addEventListener('click', function (e) {
+            const ripple = document.createElement('span');
+            const rect = this.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = x + 'px';
+            ripple.style.top = y + 'px';
+            ripple.classList.add('ripple');
+
+            this.appendChild(ripple);
+
+            setTimeout(() => ripple.remove(), 600);
+        });
+    });
 
     // Cookie Modal
     const cookieModal = document.getElementById('cookie-modal');
