@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (elementTop < windowHeight - elementVisible) {
                 setTimeout(() => {
                     element.classList.add('visible');
-                }, index * 100); // Stagger delay
+                }, index * 30); // Stagger delay
             }
         });
     };
