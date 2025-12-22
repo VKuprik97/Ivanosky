@@ -500,9 +500,6 @@ h3 {
     overflow: hidden;
     background: rgba(255, 255, 255, 0.02);
     backdrop-filter: blur(10px);
-    cursor: pointer;
-    text-decoration: none;
-    color: inherit;
 }
 
 .contact-item::before {
@@ -543,6 +540,15 @@ h3 {
     font-size: 0.95rem;
     color: var(--color-text);
     word-break: break-word;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.contact-link:hover {
+    color: var(--color-white);
 }
 
 .contact-icon {
