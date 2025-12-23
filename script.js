@@ -195,8 +195,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const rejectAllButton = document.getElementById('reject-all-cookies');
     const savePreferencesButton = document.getElementById('save-cookie-preferences');
 
-    // Check if user has already made a choice about cookies
-    if (!localStorage.getItem('cookieConsent')) {
+    // Check if user has already made a choice about cookies and if it's still valid
+    function shouldShowCookieBanner() {
+        const saved = localStorage.getItem('cookieConsent');
+        if (!saved) return true;
+
+        try {
+            const consent = JSON.parse(saved);
+            // Check if consent has expiry date and if it's expired
+            if (consent.expiryDate) {
+                const expiryDate = new Date(consent.expiryDate);
+                const now = new Date();
+                if (now > expiryDate) {
+                    // Consent expired, remove it
+                    localStorage.removeItem('cookieConsent');
+                    return true;
+                }
+            }
+            return false;
+        } catch (e) {
+            // Invalid data, show banner
+            localStorage.removeItem('cookieConsent');
+            return true;
+        }
+    }
+
+    if (shouldShowCookieBanner()) {
         // Show modal after a short delay
         setTimeout(() => {
             cookieModal.classList.add('show');
@@ -236,12 +260,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Accept all cookies
     acceptAllButton.addEventListener('click', () => {
+        const expiryDate = new Date();
+        expiryDate.setMonth(expiryDate.getMonth() + 12);
         const preferences = {
             necessary: true,
             functional: true,
             analytics: true,
             performance: true,
-            advertising: true
+            advertising: true,
+            expiryDate: expiryDate.toISOString()
         };
         localStorage.setItem('cookieConsent', JSON.stringify(preferences));
         updateCheckboxes(true);
@@ -250,12 +277,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Reject all cookies (except necessary)
     rejectAllButton.addEventListener('click', () => {
+        const expiryDate = new Date();
+        expiryDate.setMonth(expiryDate.getMonth() + 12);
         const preferences = {
             necessary: true,
             functional: false,
             analytics: false,
             performance: false,
-            advertising: false
+            advertising: false,
+            expiryDate: expiryDate.toISOString()
         };
         localStorage.setItem('cookieConsent', JSON.stringify(preferences));
         updateCheckboxes(false);
@@ -264,12 +294,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Save custom preferences
     savePreferencesButton.addEventListener('click', () => {
+        const expiryDate = new Date();
+        expiryDate.setMonth(expiryDate.getMonth() + 12);
         const preferences = {
             necessary: true, // Always true
             functional: document.getElementById('cookie-functional').checked,
             analytics: document.getElementById('cookie-analytics').checked,
             performance: document.getElementById('cookie-performance').checked,
-            advertising: document.getElementById('cookie-advertising').checked
+            advertising: document.getElementById('cookie-advertising').checked,
+            expiryDate: expiryDate.toISOString()
         };
         localStorage.setItem('cookieConsent', JSON.stringify(preferences));
         closeModal();
@@ -278,13 +311,27 @@ document.addEventListener('DOMContentLoaded', () => {
     // Toggle category details
     const categoryHeaders = document.querySelectorAll('.cookie-category-header');
     categoryHeaders.forEach(header => {
-        header.addEventListener('click', (e) => {
-            // Don't toggle if clicking on checkbox
-            if (e.target.type === 'checkbox') return;
+        // Add click event only to the toggle button (arrow)
+        const toggleButton = header.querySelector('.cookie-toggle');
+        if (toggleButton) {
+            toggleButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const category = header.closest('.cookie-category');
+                category.classList.toggle('expanded');
+            });
+        }
 
-            const category = header.closest('.cookie-category');
-            category.classList.toggle('expanded');
-        });
+        // Also allow clicking on the category title text (but not the checkbox area)
+        const categoryTitle = header.querySelector('.cookie-category-title');
+        if (categoryTitle) {
+            categoryTitle.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const category = header.closest('.cookie-category');
+                category.classList.toggle('expanded');
+            });
+        }
     });
 
     // Cookie Preferences Button (to reopen modal)
