@@ -355,4 +355,173 @@ document.addEventListener('DOMContentLoaded', () => {
             cookieModal.classList.add('show');
         });
     }
+
+    // ========================================
+    // TYPEWRITER ANIMATION
+    // ========================================
+
+    class Typewriter {
+        constructor(element, words, wait = 3000) {
+            this.element = element;
+            this.words = words;
+            this.txt = '';
+            this.wordIndex = 0;
+            this.wait = parseInt(wait, 10);
+            this.type();
+            this.isDeleting = false;
+        }
+
+        type() {
+            // Current index of word
+            const current = this.wordIndex % this.words.length;
+            // Get full text of current word
+            const fullTxt = this.words[current];
+
+            // Check if deleting
+            if (this.isDeleting) {
+                // Remove char
+                this.txt = fullTxt.substring(0, this.txt.length - 1);
+            } else {
+                // Add char
+                this.txt = fullTxt.substring(0, this.txt.length + 1);
+            }
+
+            // Insert txt into element
+            this.element.innerHTML = this.txt;
+
+            // Initial Type Speed
+            let typeSpeed = 100;
+
+            if (this.isDeleting) {
+                typeSpeed /= 2;
+            }
+
+            // If word is complete
+            if (!this.isDeleting && this.txt === fullTxt) {
+                // Make pause at end
+                typeSpeed = this.wait;
+                // Set delete to true
+                this.isDeleting = true;
+            } else if (this.isDeleting && this.txt === '') {
+                this.isDeleting = false;
+                // Move to next word
+                this.wordIndex++;
+                // Pause before start typing
+                typeSpeed = 500;
+            }
+
+            setTimeout(() => this.type(), typeSpeed);
+        }
+    }
+
+    // Init Typewriter
+    const typewriterElement = document.getElementById('typewriter');
+    if (typewriterElement) {
+        new Typewriter(typewriterElement, JSON.parse(typewriterElement.getAttribute('data-words') || '["Spazi", "Ambienti", "Idee"]'));
+    }
+    // ========================================
+    // NAVBAR LIMELIGHT ANIMATION
+    // ========================================
+
+    const navLight = document.querySelector('.nav-light');
+    const navLinksItems = document.querySelectorAll('.nav-link');
+    const navContainer = document.querySelector('.nav');
+    let activeLink = document.querySelector('.nav-link[href="index.html"]'); // Default to home
+
+    // Find current active link based on URL
+    navLinksItems.forEach(link => {
+        if (link.getAttribute('href') === window.location.hash ||
+            (window.location.hash === '' && link.getAttribute('href') === 'index.html')) {
+            activeLink = link;
+        }
+    });
+
+    function moveLight(target) {
+        if (!navLight || !target) return;
+
+        // Make light visible
+        navLight.style.opacity = '1';
+
+        // Calculate position
+        const navRect = navContainer.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+
+        // Calculate width based on target (text content)
+        // We want the light to be roughly the size of the text
+        const width = targetRect.width;
+        navLight.style.width = `${width}px`;
+
+        // Calculate left position relative to nav container
+        // Center the light over the target: targetLeft - navLeft
+        const left = targetRect.left - navRect.left;
+
+        navLight.style.left = `${left}px`;
+    }
+
+    if (navLight && navLinksItems.length > 0) {
+        // Initial position
+        if (activeLink) {
+            // small delay to ensure rendering
+            setTimeout(() => moveLight(activeLink), 100);
+        }
+
+        navLinksItems.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                moveLight(link);
+            });
+
+            link.addEventListener('click', () => {
+                activeLink = link;
+                moveLight(link);
+            });
+        });
+
+        navContainer.addEventListener('mouseleave', () => {
+            if (activeLink) {
+                moveLight(activeLink);
+            } else {
+                navLight.style.opacity = '0';
+            }
+        });
+
+        // Update on resize
+        window.addEventListener('resize', () => {
+            if (activeLink) moveLight(activeLink);
+        });
+
+        // Update on hash change
+        window.addEventListener('hashchange', () => {
+            activeLink = document.querySelector(`.nav-link[href="${location.hash}"]`) || activeLink;
+            moveLight(activeLink);
+        });
+
+        // Scroll Spy
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            if (current) {
+                const newActiveLink = document.querySelector(`.nav-link[href="#${current}"]`);
+                if (newActiveLink && newActiveLink !== activeLink) {
+                    activeLink = newActiveLink;
+                    moveLight(activeLink);
+                }
+            } else if (window.scrollY < 100) {
+                // Back to top/home
+                const homeLink = document.querySelector(`.nav-link[href="index.html"]`) || document.querySelector(`.nav-link[href="#home"]`);
+                if (homeLink && homeLink !== activeLink) {
+                    activeLink = homeLink;
+                    moveLight(activeLink);
+                }
+            }
+        });
+    }
 });
