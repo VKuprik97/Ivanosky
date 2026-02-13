@@ -166,20 +166,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Add ripple effect to contact items
+
+    // Add ripple and tilt effect to contact items
     const contactItems = document.querySelectorAll('.contact-item');
     contactItems.forEach(item => {
         item.addEventListener('mousemove', (e) => {
             const rect = item.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
+
+            // Ripple effect position
             item.style.setProperty('--x', `${x}px`);
             item.style.setProperty('--y', `${y}px`);
+
+            // Tilt effect
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+
+            const rotateX = (y - centerY) / 10;
+            const rotateY = (centerX - x) / 10;
+
+            item.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px) scale(1.02)`;
         });
 
         item.addEventListener('mouseleave', () => {
             item.style.removeProperty('--x');
             item.style.removeProperty('--y');
+            item.style.transform = '';
         });
 
         item.addEventListener('click', function (e) {

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cookie Policy - IS Interni</title>
     <meta name="description" content="Informativa sull'utilizzo dei cookie - IS Interni">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=11">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -91,25 +91,6 @@
         .back-btn:hover {
             color: var(--color-white);
         }
-
-        .cookie-settings-btn {
-            display: inline-block;
-            margin-top: 2rem;
-            padding: 0.8rem 2rem;
-            background-color: rgba(224, 216, 192, 0.2);
-            border: 1px solid var(--color-text);
-            color: var(--color-text);
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: var(--transition);
-            font-family: var(--font-body);
-        }
-
-        .cookie-settings-btn:hover {
-            background-color: var(--color-text);
-            color: var(--color-bg);
-        }
     </style>
 </head>
 
@@ -117,7 +98,9 @@
 
     <header class="header">
         <div class="container header-container">
-            <img src="assets/logo-removebg-preview.png" alt="IS Interni Logo" class="logo">
+            <a href="index.html" aria-label="Torna alla home">
+                <img src="assets/logo-removebg-preview.png" alt="IS Interni Logo" class="logo">
+            </a>
             <button class="mobile-menu-btn" aria-label="Menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -128,8 +111,9 @@
                     <li><a href="index.html" class="nav-link">Home</a></li>
                     <li><a href="index.html#chi-siamo" class="nav-link">Chi Siamo</a></li>
                     <li><a href="index.html#servizi" class="nav-link">Servizi</a></li>
-                    <li><a href="index.html#contatti" class="nav-link btn-cta">Contatti</a></li>
+                    <li><a href="index.html#contatti" class="nav-link">Contatti</a></li>
                 </ul>
+                <div class="nav-light"></div>
             </nav>
         </div>
     </header>
@@ -232,7 +216,17 @@
             <h3>3.1 Gestione delle Preferenze Cookie su Questo Sito</h3>
             <p>Puoi modificare le tue preferenze sui cookie in qualsiasi momento cliccando sul pulsante qui sotto:</p>
 
-            <button id="open-cookie-settings" class="cookie-settings-btn">⚙️ Gestisci Preferenze Cookie</button>
+            <button id="open-cookie-settings" class="footer-btn" aria-label="Gestisci Preferenze Cookie">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+                    <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    <circle cx="7" cy="7" r="1.5" fill="currentColor" />
+                    <circle cx="17" cy="8" r="1" fill="currentColor" />
+                    <circle cx="8" cy="16" r="1" fill="currentColor" />
+                    <circle cx="16" cy="16" r="1.5" fill="currentColor" />
+                </svg>
+                <span>Gestisci Preferenze Cookie</span>
+            </button>
 
             <h2>4. Normativa di Riferimento</h2>
             <p>La presente Cookie Policy è redatta in conformità a:</p>
@@ -409,7 +403,7 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=6"></script>
     <script>
         // Make the "Gestisci Preferenze Cookie" button functional
         document.getElementById('open-cookie-settings')?.addEventListener('click', () => {

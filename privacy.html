@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - IS Interni</title>
     <meta name="description" content="Informativa sulla privacy e trattamento dei dati personali - IS Interni">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=11">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -78,7 +78,9 @@
 
     <header class="header">
         <div class="container header-container">
-            <img src="assets/logo-removebg-preview.png" alt="IS Interni Logo" class="logo">
+            <a href="index.html" aria-label="Torna alla home">
+                <img src="assets/logo-removebg-preview.png" alt="IS Interni Logo" class="logo">
+            </a>
             <button class="mobile-menu-btn" aria-label="Menu">
                 <span class="bar"></span>
                 <span class="bar"></span>
@@ -89,8 +91,9 @@
                     <li><a href="index.html" class="nav-link">Home</a></li>
                     <li><a href="index.html#chi-siamo" class="nav-link">Chi Siamo</a></li>
                     <li><a href="index.html#servizi" class="nav-link">Servizi</a></li>
-                    <li><a href="index.html#contatti" class="nav-link btn-cta">Contatti</a></li>
+                    <li><a href="index.html#contatti" class="nav-link">Contatti</a></li>
                 </ul>
+                <div class="nav-light"></div>
             </nav>
         </div>
     </header>
@@ -352,7 +355,7 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=6"></script>
     <script>
         // Open cookie settings from privacy page
         document.getElementById('open-cookie-settings')?.addEventListener('click', (e) => {
