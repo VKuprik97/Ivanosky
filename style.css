@@ -139,7 +139,7 @@ h3 {
     z-index: 1000;
     background-color: rgba(74, 93, 80, 0.95);
     backdrop-filter: blur(10px);
-    border-top: 1px solid rgba(224, 216, 192, 0.1);
+    border-top: 1px solid rgba(224, 216, 192, 0.2);
     transition: all 0.3s ease;
 }
 
@@ -147,6 +147,7 @@ h3 {
     padding: 0.5rem 0;
     background-color: rgba(74, 93, 80, 0.98);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(224, 216, 192, 0.3);
 }
 
 .header-container {
@@ -198,7 +199,7 @@ h3 {
     left: 50%;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent, var(--color-white), transparent);
+    background: linear-gradient(90deg, transparent, var(--color-text), transparent);
     transform: translateX(-50%);
     transition: width 0.3s ease;
 }
@@ -293,7 +294,7 @@ h3 {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(74, 93, 80, 0.85) 0%, rgba(74, 93, 80, 0.75) 100%);
+    background: linear-gradient(135deg, rgba(224, 216, 192, 0.85) 0%, rgba(224, 216, 192, 0.75) 100%);
     z-index: 1;
 }
 
@@ -307,7 +308,8 @@ h3 {
     margin-bottom: var(--spacing-sm);
     opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
+    color: var(--color-bg);
 }
 
 .accent-text {
@@ -324,7 +326,7 @@ h3 {
     left: 0;
     width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, transparent, var(--color-text), transparent);
+    background: linear-gradient(90deg, transparent, var(--color-bg), transparent);
     animation: shimmer 10s ease-in-out infinite;
 }
 
@@ -336,7 +338,8 @@ h3 {
     margin-right: auto;
     opacity: 0;
     animation: fadeInUp 0.8s ease-out 0.3s forwards;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+    color: var(--color-text-dark);
 }
 
 /* Sections */
@@ -519,12 +522,15 @@ h3 {
 
 /* Services */
 .services {
-    background:
-        linear-gradient(135deg,
-            rgba(255, 255, 255, 0.05) 0%,
-            rgba(255, 255, 255, 0.02) 50%,
-            rgba(255, 255, 255, 0.05) 100%);
+    background-color: var(--color-text);
+    color: var(--color-text-dark);
     position: relative;
+    padding-top: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+}
+
+.services .section-title::after {
+    background-color: var(--color-text-dark);
 }
 
 .services-grid {
@@ -540,8 +546,8 @@ h3 {
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
-    backdrop-filter: blur(15px);
+    background-color: var(--color-bg);
+    color: var(--color-text);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
 }
 
@@ -563,7 +569,7 @@ h3 {
 }
 
 .service-card:hover {
-    border-color: rgba(224, 216, 192, 0.4);
+    border-color: var(--color-text);
     /* transform handled by JS */
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
         0 0 20px rgba(224, 216, 192, 0.1);
@@ -593,6 +599,17 @@ h3 {
 }
 
 /* Contact */
+.contact {
+    background-color: var(--color-text);
+    color: var(--color-text-dark);
+    padding: var(--spacing-lg) 0;
+    position: relative;
+}
+
+.contact .section-title::after {
+    background-color: var(--color-text-dark);
+}
+
 .contact-container {
     max-width: 900px;
     text-align: center;
@@ -620,7 +637,7 @@ h3 {
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    background-color: var(--color-bg);
     backdrop-filter: blur(15px);
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
 }
@@ -638,7 +655,7 @@ h3 {
 }
 
 .contact-item:hover {
-    border-color: rgba(224, 216, 192, 0.4);
+    border-color: var(--color-text);
     /* transform handled by JS */
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
         0 0 20px rgba(224, 216, 192, 0.1);
@@ -691,7 +708,7 @@ h3 {
 /* Footer */
 .footer {
     padding: var(--spacing-md) 0;
-    border-top: 1px solid rgba(224, 216, 192, 0.1);
+    border-top: 1px solid var(--color-text);
     text-align: center;
     font-size: 0.9rem;
     opacity: 0.8;
@@ -1221,11 +1238,12 @@ h3 {
 .cursor {
     display: inline-block;
     width: 3px;
-    background-color: var(--color-accent);
+    background-color: var(--color-bg);
     animation: blink 1s step-end infinite;
     margin-left: 4px;
     vertical-align: text-bottom;
     height: 1em;
+    transform: rotate(20deg);
 }
 
 @keyframes blink {
@@ -1311,10 +1329,10 @@ h3 {
    ======================================== */
 
 .about-redesign {
-    background-color: transparent;
-    /* Use body background */
-    color: var(--color-text);
-    /* Beige text */
+    background-color: var(--color-text);
+    /* Beige background */
+    color: var(--color-text-dark);
+    /* Dark text */
     padding: 8rem 0;
     position: relative;
     overflow: hidden;
@@ -1348,7 +1366,7 @@ h3 {
     /* tracking-[0.25em] */
     font-size: 0.75rem;
     /* text-xs */
-    color: var(--color-accent);
+    color: var(--color-text-dark);
     margin-bottom: 2rem;
     font-weight: 600;
 }
@@ -1361,7 +1379,7 @@ h3 {
     margin-bottom: 2.5rem;
     font-weight: 300;
     /* font-light */
-    color: var(--color-white);
+    color: var(--color-text-dark);
 }
 
 @media (min-width: 1024px) {
@@ -1376,7 +1394,7 @@ h3 {
     /* text-lg */
     line-height: 1.625;
     /* leading-relaxed */
-    color: var(--color-text);
+    color: var(--color-text-dark);
     opacity: 0.9;
     max-width: 36rem;
     /* max-w-xl */
@@ -1389,8 +1407,8 @@ h3 {
 
 /* Button Custom */
 .btn-custom {
-    background-color: var(--color-text);
-    color: var(--color-bg);
+    background-color: var(--color-bg);
+    color: var(--color-text);
     padding: 1rem 3rem;
     border-radius: 1rem;
     /* rounded-2xl */
@@ -1405,7 +1423,8 @@ h3 {
 .btn-custom:hover {
     transform: scale(1.05);
     background-color: transparent;
-    color: var(--color-text);
+    color: var(--color-bg);
+    border-color: var(--color-bg);
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
@@ -1415,7 +1434,7 @@ h3 {
 }
 
 .approach-panel {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    background: rgba(74, 93, 80, 1);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1457,4 +1476,181 @@ h3 {
 
 .shadow-2xl {
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Portfolio Section */
+.portfolio {
+    padding: var(--spacing-lg) 0;
+    position: relative;
+    background-color: var(--color-text);
+    /* Changed to beige */
+}
+
+.portfolio-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.portfolio-title-group {
+    max-width: 600px;
+}
+
+.portfolio .section-label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--color-text-dark);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.portfolio .display-heading {
+    font-size: 3rem;
+    line-height: 1.1;
+    font-family: var(--font-heading);
+    color: var(--color-text-dark);
+    margin: 0;
+}
+
+.portfolio-description {
+    max-width: 400px;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+    font-family: var(--font-heading);
+    color: var(--color-text-dark);
+    opacity: 0.8;
+    line-height: 1.6;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+    grid-auto-flow: dense;
+}
+
+.project-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    grid-column: span 6;
+    aspect-ratio: 4/3;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card.large {
+    grid-column: span 6;
+    grid-row: span 2;
+    aspect-ratio: auto;
+    height: 100%;
+}
+
+/* Grid Layout Customization based on screenshot */
+.project-card:nth-child(1) {
+    grid-column: span 6;
+    grid-row: span 2;
+}
+
+.project-card:nth-child(2),
+.project-card:nth-child(3) {
+    grid-column: span 6;
+}
+
+/* For the 4th and 5th items to be side by side below */
+.project-card:nth-child(4),
+.project-card:nth-child(5) {
+    grid-column: span 6;
+}
+
+.project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.project-card:hover .project-image {
+    transform: scale(1.1);
+}
+
+.project-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 2rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    opacity: 1;
+    /* Always visible text for better UX, or transition it */
+    transform: translateY(0);
+    transition: all 0.4s ease;
+}
+
+.project-info {
+    transform: translateY(10px);
+    transition: transform 0.4s ease;
+}
+
+.project-card:hover .project-info {
+    transform: translateY(0);
+}
+
+.project-category {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+    display: block;
+    font-weight: 700;
+}
+
+.project-title {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    color: var(--color-white);
+    margin: 0;
+    font-weight: 400;
+}
+
+/* Hover effect */
+.project-card:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+}
+
+@media (max-width: 968px) {
+    .portfolio-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+
+    .display-heading {
+        font-size: 2.5rem;
+    }
+
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .project-card,
+    .project-card.large,
+    .project-card:nth-child(n) {
+        grid-column: span 1;
+        grid-row: auto;
+        aspect-ratio: 4/3;
+        height: auto;
+    }
 }
