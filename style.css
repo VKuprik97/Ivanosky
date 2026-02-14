@@ -1305,3 +1305,156 @@ h3 {
         background: linear-gradient(to right, rgba(224, 216, 192, 0.2), transparent);
     }
 }
+
+/* ========================================
+   CHI SIAMO REDESIGN
+   ======================================== */
+
+.about-redesign {
+    background-color: transparent;
+    /* Use body background */
+    color: var(--color-text);
+    /* Beige text */
+    padding: 8rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-redesign-container {
+    max-width: 1280px;
+    /* max-w-7xl */
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.about-grid-redesign {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5rem;
+    align-items: center;
+}
+
+@media (min-width: 1024px) {
+    .about-grid-redesign {
+        grid-template-columns: 1fr 1fr;
+        /* lg:grid-cols-2 */
+    }
+}
+
+/* Typography */
+.section-label {
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+    /* tracking-[0.25em] */
+    font-size: 0.75rem;
+    /* text-xs */
+    color: var(--color-accent);
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.display-heading {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    /* text-5xl */
+    line-height: 1.1;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    /* font-light */
+    color: var(--color-white);
+}
+
+@media (min-width: 1024px) {
+    .display-heading {
+        font-size: 3.75rem;
+        /* lg:text-6xl */
+    }
+}
+
+.text-body-large {
+    font-size: 1.125rem;
+    /* text-lg */
+    line-height: 1.625;
+    /* leading-relaxed */
+    color: var(--color-text);
+    opacity: 0.9;
+    max-width: 36rem;
+    /* max-w-xl */
+    margin-bottom: 2rem;
+}
+
+.mb-12 {
+    margin-bottom: 3rem;
+}
+
+/* Button Custom */
+.btn-custom {
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    padding: 1rem 3rem;
+    border-radius: 1rem;
+    /* rounded-2xl */
+    font-weight: 600;
+    border: 1px solid var(--color-text);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    display: inline-block;
+    cursor: pointer;
+    font-family: var(--font-body);
+}
+
+.btn-custom:hover {
+    transform: scale(1.05);
+    background-color: transparent;
+    color: var(--color-text);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Right Panel */
+.about-visual-content {
+    position: relative;
+}
+
+.approach-panel {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 2rem;
+    padding: 4rem;
+    color: var(--color-white);
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.panel-title {
+    font-size: 1.5rem;
+    /* text-2xl */
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-body);
+    /* Reset to body font if needed or keep heading */
+    color: var(--color-white);
+}
+
+.panel-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    /* space-y-6 */
+    font-size: 1rem;
+    /* text-base */
+    line-height: 1.625;
+    color: var(--color-text);
+}
+
+
+
+/* Utilities */
+.shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.shadow-2xl {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
