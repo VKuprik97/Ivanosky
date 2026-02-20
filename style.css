@@ -754,212 +754,112 @@ h3 {
     height: 20px;
 }
 
-/* Cookie Modal */
-.cookie-modal {
+/* Cookie Banner (Bottom) */
+.cookie-banner {
     position: fixed;
-    top: 0;
+    bottom: -100%;
+    /* Hidden by default */
     left: 0;
     width: 100%;
-    height: 100%;
-    z-index: 10000;
-    display: none;
+    z-index: 9999;
+    padding: 1.5rem 0;
+    background: rgba(224, 216, 192, 0.15);
+    /* Light glass effect */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(224, 216, 192, 0.3);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
+    transition: bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cookie-banner.show {
+    bottom: 0;
+}
+
+.cookie-banner-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+    display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 1rem;
-}
-
-.cookie-modal.show {
-    display: flex;
-}
-
-.cookie-modal-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
-}
-
-.cookie-modal-content {
-    position: relative;
-    background-color: #f5f5f5;
-    color: var(--color-text-dark);
-    max-width: 700px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    border-radius: 8px;
-    padding: 2.5rem;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    z-index: 1;
-}
-
-.cookie-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: none;
-    border: none;
-    font-size: 2rem;
-    color: var(--color-text-dark);
-    cursor: pointer;
-    line-height: 1;
-    padding: 0.5rem;
-    transition: var(--transition);
-    opacity: 0.6;
-}
-
-.cookie-close:hover {
-    opacity: 1;
-    transform: rotate(90deg);
-}
-
-.cookie-modal-title {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    color: var(--color-text-dark);
-    margin-bottom: 1.5rem;
-    padding-right: 2rem;
-}
-
-.cookie-modal-intro {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #555;
-    margin-bottom: 1rem;
-}
-
-.cookie-link {
-    color: #0066cc;
-    text-decoration: underline;
-}
-
-.cookie-link:hover {
-    color: #0052a3;
-}
-
-.cookie-categories {
-    margin: 2rem 0;
-    border-top: 1px solid #ddd;
-}
-
-.cookie-category {
-    border-bottom: 1px solid #ddd;
-}
-
-.cookie-category-header {
-    display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 1.2rem 0;
-    cursor: pointer;
+    gap: 2rem;
 }
 
-.cookie-checkbox-label {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    cursor: pointer;
+.cookie-banner-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--color-text);
+    margin: 0;
     flex: 1;
 }
 
-.cookie-checkbox-label input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-    accent-color: var(--color-bg);
-}
-
-.cookie-checkbox-label input[type="checkbox"]:disabled {
-    cursor: not-allowed;
-    opacity: 0.6;
-}
-
-.cookie-category-title {
+.cookie-banner-text a {
+    color: var(--color-accent);
+    text-decoration: underline;
     font-weight: 600;
-    font-size: 1.05rem;
-    color: var(--color-text-dark);
 }
 
-.cookie-toggle {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-    color: var(--color-text-dark);
-    transition: var(--transition);
-}
-
-.cookie-toggle svg {
-    transition: transform 0.3s ease;
-}
-
-.cookie-category.expanded .cookie-toggle svg {
-    transform: rotate(180deg);
-}
-
-.cookie-category-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease, padding 0.3s ease;
-    padding: 0 0;
-}
-
-.cookie-category.expanded .cookie-category-content {
-    max-height: 500px;
-    padding: 0 0 1.2rem 0;
-}
-
-.cookie-category-content p {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: #666;
-    margin: 0;
-}
-
-.cookie-modal-actions {
+.cookie-banner-actions {
     display: flex;
     gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid #ddd;
+    flex-wrap: nowrap;
 }
 
-.btn-cookie {
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 4px;
+.btn-banner {
+    padding: 0.7rem 1.2rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
     font-weight: 600;
-    font-size: 0.95rem;
     cursor: pointer;
-    transition: var(--transition);
+    transition: all 0.3s ease;
     white-space: nowrap;
     font-family: var(--font-body);
 }
 
-.btn-cookie-primary {
-    background-color: #0066cc;
-    color: white;
+.btn-banner-primary {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+    border: none;
 }
 
-.btn-cookie-primary:hover {
-    background-color: #0052a3;
+.btn-banner-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(224, 216, 192, 0.3);
 }
 
-.btn-cookie-secondary {
-    background-color: transparent;
-    color: var(--color-text-dark);
-    border: 1px solid #ccc;
+.btn-banner-secondary {
+    background: transparent;
+    color: var(--color-text);
+    border: 1px solid rgba(224, 216, 192, 0.5);
 }
 
-.btn-cookie-secondary:hover {
-    background-color: #e8e8e8;
-    border-color: #999;
+.btn-banner-secondary:hover {
+    background: rgba(224, 216, 192, 0.1);
+    border-color: var(--color-text);
+    transform: translateY(-2px);
 }
+
+@media (max-width: 968px) {
+    .cookie-banner-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    .cookie-banner-actions {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn-banner {
+        flex: 1;
+        min-width: 130px;
+    }
+}
+
+
 
 /* ========================================
    MODERN ANIMATIONS
@@ -1199,18 +1099,7 @@ h3 {
         max-width: 400px;
     }
 
-    .cookie-modal-content {
-        padding: 1.5rem;
-        max-height: 95vh;
-    }
 
-    .cookie-modal-actions {
-        flex-direction: column;
-    }
-
-    .btn-cookie {
-        width: 100%;
-    }
 
     .footer-buttons {
         flex-direction: column;

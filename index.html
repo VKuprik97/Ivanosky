@@ -289,7 +289,7 @@
                     </svg>
                     <span>Privacy Policy</span>
                 </a>
-                <button id="cookie-preferences-btn" class="footer-btn" aria-label="Preferenze di consenso">
+                <button id="show-cookie-banner-btn" class="footer-btn" aria-label="Informativa Cookie">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
                         <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
@@ -298,137 +298,27 @@
                         <circle cx="8" cy="16" r="1" fill="currentColor" />
                         <circle cx="16" cy="16" r="1.5" fill="currentColor" />
                     </svg>
-                    <span>Preferenze di consenso</span>
+                    <span>Informativa Cookie</span>
                 </button>
             </div>
         </div>
     </footer>
 
-    <!-- Cookie Modal -->
-    <div id="cookie-modal" class="cookie-modal">
-        <div class="cookie-modal-overlay"></div>
-        <div class="cookie-modal-content">
-            <button class="cookie-close" aria-label="Chiudi">&times;</button>
-            <h2 class="cookie-modal-title">Personalizza le preferenze di consenso</h2>
-            <p class="cookie-modal-intro">
-                Utilizziamo i cookie per aiutarti a navigare in maniera efficiente e a svolgere determinate funzioni.
-                Troverai informazioni dettagliate su tutti i cookie sotto ciascuna categoria di consenso sottostante.
+    <!-- Cookie Banner (Bottom) -->
+    <div id="cookie-banner" class="cookie-banner">
+        <div class="cookie-banner-content">
+            <p class="cookie-banner-text">
+                Questo sito utilizza esclusivamente cookie tecnici necessari al funzionamento. Non utilizza cookie di
+                profilazione o di terze parti.
+                Per maggiori informazioni consulta l’informativa <a href="privacy.html">Privacy Policy</a>.
             </p>
-            <p class="cookie-modal-intro">
-                I cookie categorizzati come "Necessari" vengono memorizzati sul tuo browser in quanto sono essenziali
-                per consentire le funzionalità di base del sito Web. <a href="cookie-policy.html"
-                    class="cookie-link">Mostra di più</a>
-            </p>
-
-            <div class="cookie-categories">
-                <!-- Necessari -->
-                <div class="cookie-category">
-                    <div class="cookie-category-header">
-                        <label class="cookie-checkbox-label">
-                            <input type="checkbox" id="cookie-necessary" checked disabled>
-                            <span class="cookie-category-title">Necessari</span>
-                        </label>
-                        <button class="cookie-toggle" aria-label="Espandi">
-                            <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="cookie-category-content">
-                        <p>I cookie necessari sono fondamentali per le funzioni di base del sito Web e il sito Web non
-                            funzionerà nel modo previsto senza di essi. Questi cookie non memorizzano dati
-                            identificativi personali.</p>
-                    </div>
-                </div>
-
-                <!-- Funzionali -->
-                <div class="cookie-category">
-                    <div class="cookie-category-header">
-                        <div class="cookie-checkbox-label">
-                            <input type="checkbox" id="cookie-functional">
-                            <span class="cookie-category-title">Funzionale</span>
-                        </div>
-                        <button class="cookie-toggle" aria-label="Espandi">
-                            <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="cookie-category-content">
-                        <p>I cookie funzionali aiutano a svolgere determinate funzionalità come la condivisione del
-                            contenuto del sito Web su piattaforme di social media, la raccolta di feedback e altre
-                            funzionalità di terze parti.</p>
-                    </div>
-                </div>
-
-                <!-- Analitici -->
-                <div class="cookie-category">
-                    <div class="cookie-category-header">
-                        <div class="cookie-checkbox-label">
-                            <input type="checkbox" id="cookie-analytics">
-                            <span class="cookie-category-title">Analitica</span>
-                        </div>
-                        <button class="cookie-toggle" aria-label="Espandi">
-                            <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="cookie-category-content">
-                        <p>I cookie analitici vengono utilizzati per comprendere come i visitatori interagiscono con il
-                            sito Web. Questi cookie aiutano a fornire informazioni sulle metriche di numero di
-                            visitatori, frequenza di rimbalzo, fonte di traffico, ecc.</p>
-                    </div>
-                </div>
-
-                <!-- Prestazionali -->
-                <div class="cookie-category">
-                    <div class="cookie-category-header">
-                        <div class="cookie-checkbox-label">
-                            <input type="checkbox" id="cookie-performance">
-                            <span class="cookie-category-title">Prestazionali</span>
-                        </div>
-                        <button class="cookie-toggle" aria-label="Espandi">
-                            <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="cookie-category-content">
-                        <p>I cookie per le prestazioni vengono utilizzati per comprendere e analizzare gli indici di
-                            prestazioni chiave del sito Web che aiutano a fornire un'esperienza utente migliore.</p>
-                    </div>
-                </div>
-
-                <!-- Pubblicitari -->
-                <div class="cookie-category">
-                    <div class="cookie-category-header">
-                        <div class="cookie-checkbox-label">
-                            <input type="checkbox" id="cookie-advertising">
-                            <span class="cookie-category-title">Pubblicitari</span>
-                        </div>
-                        <button class="cookie-toggle" aria-label="Espandi">
-                            <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-                                <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="2" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="cookie-category-content">
-                        <p>I cookie pubblicitari vengono utilizzati per tracciare i visitatori sui siti web e mostrare
-                            annunci pubblicitari pertinenti e coinvolgenti. Questi cookie possono essere utilizzati per
-                            creare profili degli interessi degli utenti.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="cookie-modal-actions">
-                <button id="reject-all-cookies" class="btn-cookie btn-cookie-secondary">Rifiuta tutto</button>
-                <button id="save-cookie-preferences" class="btn-cookie btn-cookie-secondary">Salva le mie
-                    preferenze</button>
-                <button id="accept-all-cookies" class="btn-cookie btn-cookie-primary">Accettare tutto</button>
+            <div class="cookie-banner-actions">
+                <button id="banner-accept-all" class="btn-banner btn-banner-primary">OK</button>
             </div>
         </div>
     </div>
+
+
 
     <script src="script.js?v=6"></script>
 </body>
