@@ -213,161 +213,65 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Cookie Modal
-    const cookieModal = document.getElementById('cookie-modal');
-    const cookieOverlay = cookieModal.querySelector('.cookie-modal-overlay');
-    const closeButton = cookieModal.querySelector('.cookie-close');
-    const acceptAllButton = document.getElementById('accept-all-cookies');
-    const rejectAllButton = document.getElementById('reject-all-cookies');
-    const savePreferencesButton = document.getElementById('save-cookie-preferences');
+    // Cookie Banner (Technical only)
+    const cookieBanner = document.getElementById('cookie-banner');
+    const bannerAcceptBtn = document.getElementById('banner-accept-all');
 
-    // Check if user has already made a choice about cookies and if it's still valid
+    // Check if user has already confirmed the banner
     function shouldShowCookieBanner() {
-        const saved = localStorage.getItem('cookieConsent');
+        const saved = localStorage.getItem('cookieTechnicalConfirmed');
         if (!saved) return true;
 
         try {
-            const consent = JSON.parse(saved);
-            // Check if consent has expiry date and if it's expired
-            if (consent.expiryDate) {
-                const expiryDate = new Date(consent.expiryDate);
+            const confirmation = JSON.parse(saved);
+            if (confirmation.expiryDate) {
+                const expiryDate = new Date(confirmation.expiryDate);
                 const now = new Date();
                 if (now > expiryDate) {
-                    // Consent expired, remove it
-                    localStorage.removeItem('cookieConsent');
+                    localStorage.removeItem('cookieTechnicalConfirmed');
                     return true;
                 }
             }
             return false;
         } catch (e) {
-            // Invalid data, show banner
-            localStorage.removeItem('cookieConsent');
+            localStorage.removeItem('cookieTechnicalConfirmed');
             return true;
         }
     }
 
     if (shouldShowCookieBanner()) {
-        // Show modal after a short delay
+        // Show banner after a short delay
         setTimeout(() => {
-            cookieModal.classList.add('show');
+            if (cookieBanner) cookieBanner.classList.add('show');
         }, 1000);
     }
 
-    // Close modal function
-    function closeModal() {
-        cookieModal.classList.remove('show');
+    // Close banner function
+    function closeBanner() {
+        if (cookieBanner) cookieBanner.classList.remove('show');
     }
 
-    // Close button
-    closeButton.addEventListener('click', closeModal);
-
-    // Close when clicking overlay
-    cookieOverlay.addEventListener('click', closeModal);
-
-    // Load saved preferences to checkboxes
-    function loadPreferences() {
-        const saved = localStorage.getItem('cookieConsent');
-        if (saved) {
-            const preferences = JSON.parse(saved);
-            document.getElementById('cookie-functional').checked = preferences.functional;
-            document.getElementById('cookie-analytics').checked = preferences.analytics;
-            document.getElementById('cookie-performance').checked = preferences.performance;
-            document.getElementById('cookie-advertising').checked = preferences.advertising;
-        }
-    }
-
-    // Update checkboxes in UI
-    function updateCheckboxes(checked) {
-        document.getElementById('cookie-functional').checked = checked;
-        document.getElementById('cookie-analytics').checked = checked;
-        document.getElementById('cookie-performance').checked = checked;
-        document.getElementById('cookie-advertising').checked = checked;
-    }
-
-    // Accept all cookies
-    acceptAllButton.addEventListener('click', () => {
-        const expiryDate = new Date();
-        expiryDate.setMonth(expiryDate.getMonth() + 12);
-        const preferences = {
-            necessary: true,
-            functional: true,
-            analytics: true,
-            performance: true,
-            advertising: true,
-            expiryDate: expiryDate.toISOString()
-        };
-        localStorage.setItem('cookieConsent', JSON.stringify(preferences));
-        updateCheckboxes(true);
-        closeModal();
-    });
-
-    // Reject all cookies (except necessary)
-    rejectAllButton.addEventListener('click', () => {
-        const expiryDate = new Date();
-        expiryDate.setMonth(expiryDate.getMonth() + 12);
-        const preferences = {
-            necessary: true,
-            functional: false,
-            analytics: false,
-            performance: false,
-            advertising: false,
-            expiryDate: expiryDate.toISOString()
-        };
-        localStorage.setItem('cookieConsent', JSON.stringify(preferences));
-        updateCheckboxes(false);
-        closeModal();
-    });
-
-    // Save custom preferences
-    savePreferencesButton.addEventListener('click', () => {
-        const expiryDate = new Date();
-        expiryDate.setMonth(expiryDate.getMonth() + 12);
-        const preferences = {
-            necessary: true, // Always true
-            functional: document.getElementById('cookie-functional').checked,
-            analytics: document.getElementById('cookie-analytics').checked,
-            performance: document.getElementById('cookie-performance').checked,
-            advertising: document.getElementById('cookie-advertising').checked,
-            expiryDate: expiryDate.toISOString()
-        };
-        localStorage.setItem('cookieConsent', JSON.stringify(preferences));
-        closeModal();
-    });
-
-    // Toggle category details
-    const categoryHeaders = document.querySelectorAll('.cookie-category-header');
-    categoryHeaders.forEach(header => {
-        // Add click event only to the toggle button (arrow)
-        const toggleButton = header.querySelector('.cookie-toggle');
-        if (toggleButton) {
-            toggleButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const category = header.closest('.cookie-category');
-                category.classList.toggle('expanded');
-            });
-        }
-
-        // Also allow clicking on the category title text (but not the checkbox area)
-        const categoryTitle = header.querySelector('.cookie-category-title');
-        if (categoryTitle) {
-            categoryTitle.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const category = header.closest('.cookie-category');
-                category.classList.toggle('expanded');
-            });
-        }
-    });
-
-    // Cookie Preferences Button (to reopen modal)
-    const cookiePreferencesBtn = document.getElementById('cookie-preferences-btn');
-    if (cookiePreferencesBtn) {
-        cookiePreferencesBtn.addEventListener('click', () => {
-            loadPreferences();
-            cookieModal.classList.add('show');
+    // Event Listener for OK button
+    if (bannerAcceptBtn) {
+        bannerAcceptBtn.addEventListener('click', () => {
+            const expiryDate = new Date();
+            expiryDate.setMonth(expiryDate.getMonth() + 12);
+            const confirmation = {
+                confirmed: true,
+                expiryDate: expiryDate.toISOString()
+            };
+            localStorage.setItem('cookieTechnicalConfirmed', JSON.stringify(confirmation));
+            closeBanner();
         });
     }
+
+    // Manual re-open (footer or in-page)
+    const showBannerBtns = document.querySelectorAll('.show-cookie-banner-btn, #show-cookie-banner-btn');
+    showBannerBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (cookieBanner) cookieBanner.classList.add('show');
+        });
+    });
 
     // ========================================
     // TYPEWRITER ANIMATION
