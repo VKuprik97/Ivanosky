@@ -1,5 +1,5 @@
 :root {
-    --color-bg: #4A5D50;
+    --color-bg: #475444;
     /* Dark Green from logo */
     --color-text: #E0D8C0;
     /* Beige from logo */
@@ -16,6 +16,7 @@
     --spacing-sm: 1rem;
     --spacing-md: 2rem;
     --spacing-lg: 4rem;
+    --spacing-xl: 8rem;
 
     --transition: all 0.3s ease;
 }
@@ -137,7 +138,7 @@ h3 {
     width: 100%;
     top: 0;
     z-index: 1000;
-    background-color: rgba(74, 93, 80, 0.95);
+    background-color: rgba(71, 84, 68, 0.95);
     backdrop-filter: blur(10px);
     border-top: 1px solid rgba(224, 216, 192, 0.2);
     transition: all 0.3s ease;
@@ -145,7 +146,7 @@ h3 {
 
 .header.scrolled {
     padding: 0.5rem 0;
-    background-color: rgba(74, 93, 80, 0.98);
+    background-color: rgba(71, 84, 68, 0.98);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     border-bottom: 1px solid rgba(224, 216, 192, 0.3);
 }
@@ -304,7 +305,10 @@ h3 {
 }
 
 .hero-title {
-    font-size: 4rem;
+    font-size: 5.5rem;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
     margin-bottom: var(--spacing-sm);
     opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
@@ -331,7 +335,8 @@ h3 {
 }
 
 .hero-subtitle {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    font-weight: 300;
     margin-bottom: var(--spacing-md);
     max-width: 600px;
     margin-left: auto;
@@ -344,7 +349,7 @@ h3 {
 
 /* Sections */
 .section {
-    padding: var(--spacing-lg) 0;
+    padding: var(--spacing-xl) 0;
     position: relative;
 }
 
@@ -408,7 +413,7 @@ h3 {
     position: absolute;
     bottom: 30px;
     right: -20px;
-    background: rgba(74, 93, 80, 0.95);
+    background: rgba(71, 84, 68, 0.95);
     backdrop-filter: blur(10px);
     padding: 1.5rem;
     border-radius: 12px;
@@ -525,8 +530,8 @@ h3 {
     background-color: var(--color-text);
     color: var(--color-text-dark);
     position: relative;
-    padding-top: var(--spacing-lg);
-    padding-bottom: var(--spacing-lg);
+    padding-top: var(--spacing-xl);
+    padding-bottom: var(--spacing-xl);
 }
 
 .services .section-title::after {
@@ -570,13 +575,14 @@ h3 {
 
 .service-card:hover {
     border-color: var(--color-text);
-    /* transform handled by JS */
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
         0 0 20px rgba(224, 216, 192, 0.1);
+    transform: translateY(-5px);
 }
 
 .service-card h3 {
     font-size: 1.5rem;
+    font-family: var(--font-heading);
     margin-bottom: 1rem;
     position: relative;
     z-index: 1;
@@ -763,12 +769,12 @@ h3 {
     width: 100%;
     z-index: 9999;
     padding: 1.5rem 0;
-    background: rgba(224, 216, 192, 0.15);
-    /* Light glass effect */
+    background: rgba(44, 62, 48, 0.98);
+    /* Dark green glass effect */
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-top: 1px solid rgba(224, 216, 192, 0.3);
-    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
+    border-top: 1px solid rgba(224, 216, 192, 0.2);
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.3);
     transition: bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1323,7 +1329,7 @@ h3 {
 }
 
 .approach-panel {
-    background: rgba(74, 93, 80, 1);
+    background: rgba(71, 84, 68, 1);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1369,7 +1375,7 @@ h3 {
 
 /* Portfolio Section */
 .portfolio {
-    padding: var(--spacing-lg) 0;
+    padding: var(--spacing-xl) 0;
     position: relative;
     background-color: var(--color-text);
     /* Changed to beige */
@@ -1419,6 +1425,7 @@ h3 {
 .portfolio-grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
+    grid-auto-rows: 300px;
     gap: 20px;
     grid-auto-flow: dense;
 }
@@ -1429,33 +1436,39 @@ h3 {
     overflow: hidden;
     cursor: pointer;
     grid-column: span 6;
-    aspect-ratio: 4/3;
+    height: 100%;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .project-card.large {
-    grid-column: span 6;
     grid-row: span 2;
-    aspect-ratio: auto;
-    height: 100%;
 }
 
-/* Grid Layout Customization based on screenshot */
+/* Dynamic Modern Grid Layout */
 .project-card:nth-child(1) {
-    grid-column: span 6;
+    grid-column: span 8;
     grid-row: span 2;
 }
 
-.project-card:nth-child(2),
-.project-card:nth-child(3) {
-    grid-column: span 6;
+.project-card:nth-child(2) {
+    grid-column: span 4;
+    grid-row: span 1;
 }
 
-/* For the 4th and 5th items to be side by side below */
-.project-card:nth-child(4),
+.project-card:nth-child(3) {
+    grid-column: span 4;
+    grid-row: span 1;
+}
+
+.project-card:nth-child(4) {
+    grid-column: span 5;
+    grid-row: span 1;
+}
+
 .project-card:nth-child(5) {
-    grid-column: span 6;
+    grid-column: span 7;
+    grid-row: span 1;
 }
 
 .project-image {
